@@ -1,0 +1,145 @@
+{
+  "resumo_geral": {
+    "audiencia_total": 86100000,
+    "audiencia_formatada": "86,1 mi",
+    "cpm_medio_usd": 19.29,
+    "cards_exibidos": 19,
+    "total_exibidores": 19,
+    "capacidade_total": 675
+  },
+  "exibidores": [
+    {
+      "nome": "Plena Midia",
+      "regioes": ["NAO", "PR", "RS", "SC"],
+      "total_telas": 197,
+      "audiencia": 709614,
+      "cpm_medio_usd": 9.28
+    },
+    {
+      "nome": "C2R",
+      "regioes": ["SP"],
+      "total_telas": 111,
+      "audiencia": 777000,
+      "cpm_medio_usd": 8.35
+    },
+    {
+      "nome": "Pixel Midia",
+      "regioes": ["BA", "MG", "MT", "PE", "RJ", "SC", "SP"],
+      "total_telas": 87,
+      "audiencia": 10600000,
+      "cpm_medio_usd": 4.22
+    },
+    {
+      "nome": "Bravo Ad",
+      "regioes": ["AL", "DF", "GO", "PB", "RJ", "SC", "SP"],
+      "total_telas": 50,
+      "audiencia": 1300000,
+      "cpm_medio_usd": 145.11
+    },
+    {
+      "nome": "Maely",
+      "regioes": ["ES", "SC"],
+      "total_telas": 48,
+      "audiencia": 10600000,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "Midialand",
+      "regioes": ["PR", "RS"],
+      "total_telas": 46,
+      "audiencia": 20600000,
+      "cpm_medio_usd": 4.27
+    },
+    {
+      "nome": "Bandeirantes",
+      "regioes": ["AL", "CE", "PB", "PE", "RN"],
+      "total_telas": 35,
+      "audiencia": 12200000,
+      "cpm_medio_usd": 1.99
+    },
+    {
+      "nome": "Fly Midia",
+      "regioes": ["MG"],
+      "total_telas": 21,
+      "audiencia": 14300000,
+      "cpm_medio_usd": 1.53
+    },
+    {
+      "nome": "LCM Digital OOH",
+      "regioes": ["SP"],
+      "total_telas": 16,
+      "audiencia": 1000000,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "Bigdoor",
+      "regioes": ["CE"],
+      "total_telas": 16,
+      "audiencia": 100000,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "Capital Midia",
+      "regioes": ["GO", "RS", "TO"],
+      "total_telas": 11,
+      "audiencia": 0,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "URBS",
+      "regioes": ["PE"],
+      "total_telas": 9,
+      "audiencia": 12600,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "MT LED",
+      "regioes": ["MT"],
+      "total_telas": 8,
+      "audiencia": 0,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "Nirooh",
+      "regioes": ["SP"],
+      "total_telas": 6,
+      "audiencia": 403130,
+      "cpm_medio_usd": 15.94
+    },
+    {
+      "nome": "Eletrovision Dooh",
+      "regioes": ["SP"],
+      "total_telas": 5,
+      "audiencia": 3500000,
+      "cpm_medio_usd": 1.02
+    },
+    {
+      "nome": "Flag Midia",
+      "regioes": ["DF"],
+      "total_telas": 3,
+      "audiencia": 10000000,
+      "cpm_medio_usd": 27.83
+    },
+    {
+      "nome": "Videoporto",
+      "regioes": ["PE"],
+      "total_telas": 3,
+      "audiencia": 0,
+      "cpm_medio_usd": 0.0
+    },
+    {
+      "nome": "Alinhares",
+      "regioes": ["BA"],
+      "total_telas": 2,
+      "audiencia": 0,
+      "cpm_medio_usd": 0.69
+    },
+    {
+      "nome": "Megapixel",
+      "regioes": ["GO"],
+      "total_telas": 1,
+      "audiencia": 0,
+      "cpm_medio_usd": 0.0
+    }
+  ]
+}

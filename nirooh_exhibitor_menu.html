@@ -1,0 +1,1392 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Nirooh Lumina | Nossos Exibidores</title>
+  <style>
+    :root {
+      --bg: #f7f3ec;
+      --bg-accent: #fff2df;
+      --surface: rgba(255, 255, 255, 0.94);
+      --surface-soft: #fffaf4;
+      --surface-muted: #f3eee5;
+      --border: #e7dece;
+      --border-strong: #dbcdb6;
+      --text: #48546f;
+      --text-strong: #2f3a50;
+      --muted: #7e879a;
+      --orange: #f7a01d;
+      --orange-strong: #ff8d12;
+      --shadow: 0 18px 48px rgba(72, 84, 111, 0.12);
+      --radius-lg: 26px;
+      --radius-md: 22px;
+      --radius-sm: 18px;
+      --font: "Avenir Next", "Helvetica Neue", "Segoe UI", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+    }
+
+    html {
+      scroll-behavior: smooth;
+    }
+
+    body {
+      margin: 0;
+      min-height: 100vh;
+      font-family: var(--font);
+      color: var(--text);
+      background:
+        radial-gradient(circle at top right, rgba(247, 160, 29, 0.12), transparent 22%),
+        linear-gradient(180deg, #fbf8f2 0%, #f4eee4 100%);
+    }
+
+    body::before {
+      content: "";
+      position: fixed;
+      inset: 0;
+      pointer-events: none;
+      background:
+        linear-gradient(90deg, rgba(72, 84, 111, 0.03) 1px, transparent 1px),
+        linear-gradient(0deg, rgba(72, 84, 111, 0.02) 1px, transparent 1px);
+      background-size: 84px 84px;
+      mask-image: linear-gradient(180deg, rgba(0, 0, 0, 0.24), transparent 92%);
+    }
+
+    button,
+    input,
+    a {
+      font: inherit;
+    }
+
+    button {
+      border: 0;
+      background: none;
+    }
+
+    .app-shell {
+      position: relative;
+      width: min(100%, 1600px);
+      margin: 0 auto;
+      padding: 0 20px 40px;
+    }
+
+    .topbar {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 16px;
+      padding: 10px 0 12px;
+      border-bottom: 1px solid rgba(72, 84, 111, 0.08);
+    }
+
+    .brand {
+      display: inline-flex;
+      align-items: center;
+      min-width: 0;
+      text-decoration: none;
+    }
+
+    .brand-logo {
+      display: block;
+      width: min(100%, 320px);
+      height: auto;
+    }
+
+    .toolbar {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .search-shell {
+      position: relative;
+      width: min(100%, 380px);
+      min-width: 260px;
+    }
+
+    .search-shell svg {
+      position: absolute;
+      left: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: #919ab0;
+      pointer-events: none;
+    }
+
+    .search-input {
+      width: 100%;
+      height: 50px;
+      padding: 0 20px 0 52px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: rgba(255, 255, 255, 0.92);
+      color: var(--text-strong);
+      outline: none;
+      box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.4);
+      transition: border-color 0.18s ease, box-shadow 0.18s ease, background 0.18s ease;
+    }
+
+    .search-input::placeholder {
+      color: #98a1b3;
+    }
+
+    .search-input:focus {
+      border-color: rgba(247, 160, 29, 0.62);
+      box-shadow: 0 0 0 4px rgba(247, 160, 29, 0.12);
+      background: #ffffff;
+    }
+
+    .toolbar-button {
+      height: 48px;
+      border-radius: 999px;
+      padding: 0 20px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 10px;
+      font-weight: 700;
+      color: var(--text-strong);
+      cursor: pointer;
+      text-decoration: none;
+      transition: transform 0.16s ease, opacity 0.16s ease, box-shadow 0.16s ease;
+    }
+
+    .toolbar-button:hover {
+      transform: translateY(-1px);
+    }
+
+    .toolbar-button:disabled {
+      opacity: 0.56;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .toolbar-button--primary {
+      min-width: 148px;
+      color: #ffffff;
+      background: linear-gradient(135deg, #ffb24b 0%, var(--orange-strong) 100%);
+      box-shadow: 0 10px 24px rgba(247, 160, 29, 0.22);
+    }
+
+    .hero {
+      grid-template-columns: minmax(0, 1.3fr) minmax(320px, 0.7fr);
+      gap: 28px;
+      padding: 34px 0 26px;
+      align-items: start;
+    }
+
+    .hero-copy {
+      min-width: 0;
+      padding: 28px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .eyebrow {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+      color: var(--orange);
+      font-weight: 800;
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.86rem;
+    }
+
+    .eyebrow::before {
+      content: "";
+      width: 24px;
+      height: 1px;
+      background: rgba(247, 160, 29, 0.68);
+    }
+
+    .hero-title {
+      margin: 0;
+      font-size: clamp(2.8rem, 6vw, 4.8rem);
+      line-height: 0.94;
+      letter-spacing: -0.07em;
+      color: var(--text-strong);
+      font-weight: 500;
+      max-width: 560px;
+    }
+
+    .hero-title span {
+      color: #8a93a7;
+      font-weight: 400;
+    }
+
+    .hero-description {
+      max-width: 780px;
+      margin: 20px 0 0;
+      color: var(--muted);
+      font-size: 0.98rem;
+      line-height: 1.72;
+    }
+
+    .hero-inline-metrics {
+      display: grid;
+      grid-template-columns: repeat(3, minmax(0, 1fr));
+      gap: 14px;
+      max-width: 940px;
+      margin-top: 24px;
+    }
+
+    .inline-metric,
+    .hero-stat,
+    .data-console,
+    .exhibitor-card,
+    .note {
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .inline-metric {
+      padding: 18px 20px;
+      border-radius: 22px;
+    }
+
+    .inline-metric span {
+      display: block;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.72rem;
+      margin-bottom: 10px;
+      font-weight: 700;
+    }
+
+    .inline-metric strong {
+      color: var(--text-strong);
+      font-size: clamp(1.14rem, 1.8vw, 1.62rem);
+      letter-spacing: -0.04em;
+      font-weight: 600;
+    }
+
+    .hero-side {
+      display: flex;
+      flex-direction: column;
+      gap: 18px;
+      align-items: stretch;
+    }
+
+    .hero-stats {
+      display: grid;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
+      gap: 18px;
+      align-self: end;
+    }
+
+    .hero-stat {
+      min-height: 100px;
+      padding: 18px 20px;
+      border-radius: 24px;
+    }
+
+    .inline-metric strong.accent {
+      color: var(--orange-strong);
+    }
+
+    .data-console {
+      padding: 22px;
+      border-radius: var(--radius-lg);
+      transition: border-color 0.18s ease, transform 0.18s ease, background 0.18s ease;
+    }
+
+    .data-console.dragover {
+      border-color: rgba(247, 160, 29, 0.72);
+      transform: translateY(-2px);
+      background: var(--bg-accent);
+    }
+
+    .console-title {
+      margin: 0 0 10px;
+      color: var(--text-strong);
+      font-size: 1.04rem;
+      letter-spacing: -0.02em;
+    }
+
+    .console-copy {
+      margin: 0;
+      color: var(--muted);
+      line-height: 1.6;
+      font-size: 0.94rem;
+    }
+
+    .console-actions {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .console-chip {
+      min-height: 42px;
+      padding: 10px 14px;
+      border-radius: 999px;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border: 1px solid var(--border);
+      background: #ffffff;
+      color: var(--text-strong);
+      text-decoration: none;
+      cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, background 0.16s ease;
+    }
+
+    .console-chip:hover {
+      transform: translateY(-1px);
+      border-color: rgba(247, 160, 29, 0.42);
+      background: var(--bg-accent);
+    }
+
+    .meta-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 18px;
+    }
+
+    .meta-pill {
+      min-height: 38px;
+      padding: 9px 14px;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: var(--text);
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 0.85rem;
+    }
+
+    .meta-pill strong {
+      color: var(--text-strong);
+      font-weight: 700;
+    }
+
+    .content-head {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      gap: 16px;
+      margin: 0 0 18px;
+    }
+
+    .content-title {
+      margin: 0;
+      color: var(--text-strong);
+      font-size: 1.28rem;
+      letter-spacing: -0.04em;
+    }
+
+    .content-subtitle {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.92rem;
+      line-height: 1.5;
+      max-width: 720px;
+    }
+
+    .results-summary {
+      color: var(--muted);
+      text-align: right;
+      font-size: 0.92rem;
+      line-height: 1.5;
+    }
+
+    .cards-grid {
+      display: grid;
+      grid-template-columns: repeat(4, minmax(0, 1fr));
+      gap: 20px;
+    }
+
+    .cards-panel {
+      padding: 18px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      box-shadow: var(--shadow);
+    }
+
+    .exhibitor-card {
+      position: relative;
+      overflow: hidden;
+      min-height: 360px;
+      padding: 18px;
+      border-radius: 28px;
+    }
+
+    .exhibitor-card::after {
+      content: "";
+      position: absolute;
+      inset: auto -48px -62px auto;
+      width: 180px;
+      height: 180px;
+      border-radius: 50%;
+      background: radial-gradient(circle, rgba(247, 160, 29, 0.14), transparent 72%);
+      pointer-events: none;
+    }
+
+    .card-head {
+      position: relative;
+      z-index: 1;
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 16px;
+      margin-bottom: 14px;
+    }
+
+    .card-head h3 {
+      margin: 0;
+      color: var(--text-strong);
+      font-size: clamp(1rem, 1.3vw, 1.16rem);
+      font-weight: 500;
+      letter-spacing: -0.05em;
+      line-height: 1.1;
+    }
+
+    .card-head p {
+      margin: 8px 0 0;
+      color: var(--muted);
+      font-size: 0.56rem;
+      line-height: 1.45;
+    }
+
+    .card-focus {
+      width: 40px;
+      height: 40px;
+      flex: 0 0 auto;
+      border-radius: 999px;
+      border: 1px solid var(--border);
+      background: var(--surface-soft);
+      color: #9aa3b5;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: transform 0.16s ease, border-color 0.16s ease, color 0.16s ease, background 0.16s ease;
+    }
+
+    .card-focus:hover {
+      transform: translateY(-1px);
+      border-color: rgba(247, 160, 29, 0.44);
+      color: var(--orange-strong);
+      background: var(--bg-accent);
+    }
+
+    .metric-stack {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 12px;
+    }
+
+    .metric-box {
+      position: relative;
+      overflow: hidden;
+      border-radius: 20px;
+      padding: 16px 18px;
+      min-height: 88px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-between;
+    }
+
+    .metric-box--highlight {
+      background: linear-gradient(135deg, #ffb954 0%, var(--orange-strong) 100%);
+      color: #ffffff;
+      box-shadow: inset 0 -10px 18px rgba(0, 0, 0, 0.08);
+    }
+
+    .metric-box--secondary {
+      background: var(--surface-muted);
+      border: 1px solid rgba(72, 84, 111, 0.06);
+    }
+
+    .metric-label {
+      display: inline-flex;
+      align-items: center;
+      gap: 10px;
+      color: rgba(255, 255, 255, 0.84);
+      text-transform: uppercase;
+      letter-spacing: 0.12em;
+      font-size: 0.48rem;
+      font-weight: 700;
+    }
+
+    .metric-box--secondary .metric-label {
+      color: var(--muted);
+    }
+
+    .metric-value {
+      display: flex;
+      align-items: baseline;
+      gap: 10px;
+      margin-top: 10px;
+    }
+
+    .metric-value strong {
+      font-size: clamp(1.72rem, 2.2vw, 2.26rem);
+      font-weight: 500;
+      letter-spacing: -0.07em;
+      line-height: 1;
+    }
+
+    .metric-box--secondary .metric-value strong {
+      color: var(--text-strong);
+    }
+
+    .metric-unit {
+      font-size: 0.54rem;
+      color: var(--muted);
+      font-weight: 600;
+    }
+
+    .metric-icon {
+      position: absolute;
+      right: 16px;
+      bottom: 14px;
+      opacity: 0.26;
+      transform: scale(0.78);
+      transform-origin: bottom right;
+    }
+
+    .card-footer {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 10px;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(72, 84, 111, 0.08);
+    }
+
+    .footer-stat span {
+      display: block;
+      color: #8b94a7;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.46rem;
+      font-weight: 700;
+      margin-bottom: 8px;
+    }
+
+    .footer-stat strong {
+      display: block;
+      color: var(--text-strong);
+      font-size: 0.6rem;
+      font-weight: 600;
+      line-height: 1.4;
+    }
+
+    .regions-list {
+      display: flex;
+      flex-wrap: nowrap;
+      gap: 8px;
+      align-items: center;
+      overflow-x: auto;
+      overflow-y: hidden;
+      padding-bottom: 2px;
+      scrollbar-width: thin;
+    }
+
+    .region-badge {
+      min-width: 28px;
+      height: 28px;
+      padding: 0 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(247, 160, 29, 0.28);
+      background: var(--bg-accent);
+      color: var(--orange-strong);
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 0.5rem;
+      font-weight: 700;
+      line-height: 1;
+      text-transform: uppercase;
+      white-space: nowrap;
+      flex: 0 0 auto;
+    }
+
+    .region-badge--empty {
+      min-width: auto;
+      padding: 0 12px;
+      color: var(--muted);
+      border-color: var(--border);
+      background: var(--surface-soft);
+    }
+
+    .coverage-row {
+      position: relative;
+      z-index: 1;
+      display: grid;
+      gap: 8px;
+      margin-top: 8px;
+    }
+
+    .coverage-label {
+      display: block;
+      color: #8b94a7;
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      font-size: 0.46rem;
+      font-weight: 700;
+    }
+
+    .empty {
+      padding: 34px 24px;
+      border-radius: 24px;
+      border: 1px solid var(--border);
+      background: var(--surface);
+      color: var(--muted);
+      text-align: center;
+      line-height: 1.7;
+      box-shadow: var(--shadow);
+      grid-column: 1 / -1;
+    }
+
+    .note {
+      margin-top: 22px;
+      padding: 18px 20px;
+      border-radius: 22px;
+      color: var(--muted);
+      line-height: 1.7;
+      font-size: 0.92rem;
+    }
+
+    .note strong {
+      color: var(--text-strong);
+    }
+
+    .footer {
+      display: flex;
+      justify-content: space-between;
+      gap: 12px;
+      flex-wrap: wrap;
+      margin-top: 20px;
+      color: #8b94a7;
+      font-size: 0.84rem;
+      letter-spacing: 0.02em;
+    }
+
+    @media (max-width: 1380px) {
+      .cards-grid {
+        grid-template-columns: repeat(3, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 1180px) {
+      .hero {
+        grid-template-columns: 1fr;
+      }
+
+      .hero-side {
+        max-width: 720px;
+      }
+
+      .cards-grid {
+        grid-template-columns: repeat(2, minmax(0, 1fr));
+      }
+    }
+
+    @media (max-width: 860px) {
+      .app-shell {
+        padding: 0 14px 26px;
+      }
+
+      .topbar {
+        flex-direction: column;
+        align-items: stretch;
+      }
+
+      .toolbar {
+        justify-content: stretch;
+      }
+
+      .brand-logo {
+        width: min(100%, 270px);
+      }
+
+      .search-shell {
+        width: 100%;
+        min-width: 0;
+      }
+
+      .toolbar-button {
+        flex: 1 1 auto;
+      }
+
+      .hero {
+        gap: 22px;
+        padding: 28px 0 24px;
+      }
+
+      .hero-inline-metrics,
+      .hero-stats,
+      .card-footer {
+        grid-template-columns: 1fr;
+      }
+
+      .content-head {
+        flex-direction: column;
+        align-items: flex-start;
+      }
+
+      .results-summary {
+        text-align: left;
+      }
+
+      .cards-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
+      }
+
+      .exhibitor-card {
+        min-height: auto;
+        padding: 18px;
+      }
+
+      .metric-box {
+        padding: 16px 18px;
+      }
+    }
+  </style>
+</head>
+<body>
+  <main class="app-shell">
+    <header class="topbar">
+      <a class="brand" href="./nirooh_exhibitor_menu.html" aria-label="Nirooh">
+        <svg class="brand-logo" viewBox="0 0 980 170" fill="none" xmlns="http://www.w3.org/2000/svg" role="img" aria-label="Nirooh">
+          <text x="0" y="78" fill="#66728C" font-size="76" font-weight="500" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif">NIRO</text>
+          <text x="278" y="78" fill="#F7A01D" font-size="76" font-weight="500" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif">OH</text>
+          <text x="0" y="142" fill="#66728C" font-size="30" font-weight="400" font-family="Avenir Next, Helvetica Neue, Arial, sans-serif">Unbox the programmatic DOOH</text>
+          <path d="M572 18V136" stroke="#66728C" stroke-width="4" stroke-linecap="round"/>
+          <path d="M715 24H797L838 95L797 166H715L674 95L715 24Z" stroke="#66728C" stroke-width="12" stroke-linejoin="round"/>
+          <circle cx="736" cy="95" r="8" fill="#F7A01D"/>
+          <path d="M855 24H937L978 95L937 166H855L814 95L835 58" stroke="#F7A01D" stroke-width="12" stroke-linejoin="round"/>
+          <circle cx="895" cy="95" r="8" fill="#66728C"/>
+        </svg>
+      </a>
+
+      <div class="toolbar">
+        <label class="search-shell" aria-label="Buscar exibidor">
+          <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+            <path d="M11 19C15.4183 19 19 15.4183 19 11C19 6.58172 15.4183 3 11 3C6.58172 3 3 6.58172 3 11C3 15.4183 6.58172 19 11 19Z" stroke="currentColor" stroke-width="1.8"/>
+            <path d="M20.9999 20.9999L16.6499 16.6499" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+          </svg>
+          <input class="search-input" id="searchInput" type="search" placeholder="Buscar exibidor..." />
+        </label>
+      </div>
+    </header>
+
+    <section class="hero">
+      <div class="hero-copy">
+        <div class="eyebrow">Painel de Inventário</div>
+        <h1 class="hero-title">Nossos <span>Exibidores</span></h1>
+        <p class="hero-description">
+          Layout executivo do inventário por exibidor. .
+        </p>
+
+        <div class="hero-inline-metrics">
+          <div class="inline-metric">
+            <span>Audiência total</span>
+            <strong id="totalAudience">0</strong>
+          </div>
+          <div class="inline-metric">
+            <span>CPM médio geral</span>
+            <strong id="averageCpm">US$ 0,00</strong>
+          </div>
+          <div class="inline-metric">
+            <span>Cards exibidos</span>
+            <strong id="cardCount">0 cards</strong>
+          </div>
+
+          <div class="inline-metric">
+            <span>Total de Exibidores</span>
+            <strong id="totalExhibitors">0 cards</strong>
+          </div>
+
+          <div class="inline-metric">
+            <span>Capacidade total</span>
+            <strong class="accent" id="totalScreens">0</strong>
+          </div>
+
+        </div>
+      </div>
+
+    </section>
+
+    <section class="cards-panel">
+      <div class="content-head">
+        <div>
+          <h2 class="content-title">Cardápio por Exibidor</h2>
+          <p class="content-subtitle">
+            Cada card resume total de telas, audiência consolidada, CPM médio e abrangência regional. Use a seta no canto para isolar rapidamente um exibidor na busca.
+          </p>
+        </div>
+        <div class="results-summary" id="resultsSummary">Exibindo 0 de 0 exibidores</div>
+      </div>
+
+      <section class="cards-grid" id="cardsGrid"></section>
+    </section>
+
+    <footer class="footer">
+      <span>Nirooh Lumina | Cardápio executivo</span>
+      <span>Para carga automática, prefira abrir via servidor local</span>
+    </footer>
+  </main>
+
+  <script>
+
+    const state = {
+      rows: [],
+      exhibitors: [],
+      visibleExhibitors: [],
+      sourceName: "",
+      sourcePath: "",
+      search: ""
+    };
+
+    const refs = {
+      searchInput: document.getElementById("searchInput"),
+      totalExhibitors: document.getElementById("totalExhibitors"),
+      totalScreens: document.getElementById("totalScreens"),
+      totalAudience: document.getElementById("totalAudience"),
+      averageCpm: document.getElementById("averageCpm"),
+      cardCount: document.getElementById("cardCount"),
+      resultsSummary: document.getElementById("resultsSummary"),
+      cardsGrid: document.getElementById("cardsGrid"),
+    };
+
+    const numberFormatter = new Intl.NumberFormat("pt-BR");
+    const compactFormatter = new Intl.NumberFormat("pt-BR", {
+      notation: "compact",
+      maximumFractionDigits: 1
+    });
+
+    initialize();
+
+    async function initialize() {
+      refs.searchInput.addEventListener("input", handleSearchInput);
+      renderEmptyState();
+      await attemptAutoLoad();
+    }
+
+    function handleSearchInput(event) {
+      state.search = safeValue(event.target.value);
+      renderDashboard();
+    }
+
+    function handleCardGridClick(event) {
+      const button = event.target.closest("[data-focus-exhibitor]");
+      if (!button) return;
+
+      const exhibitor = safeValue(button.dataset.focusExhibitor);
+      if (!exhibitor) return;
+
+      state.search = normalizeText(state.search) === normalizeText(exhibitor) ? "" : exhibitor;
+      refs.searchInput.value = state.search;
+      renderDashboard();
+      window.scrollTo({ top: 0, behavior: "smooth" });
+    }
+
+    async function attemptAutoLoad() {
+      // 1. Tenta carregar exibidores.json primeiro
+      const jsonFile = "exibidores.json"
+      const response = await fetch(jsonFile, { cache: "no-store" });
+      if (!response.ok) return false;
+
+      const json = await response.json();
+      if (json && Array.isArray(json.exibidores) && json.exibidores.length) {
+        loadFromJson(json);
+        return true;
+      }
+
+      showAutoLoadHelp();
+      return false;
+    }
+
+    function loadFromJson(json) {
+      const resumo = json.resumo_geral || {};
+      state.exhibitors = json.exibidores.map((ex) => ({
+        name: safeValue(ex.nome) || "Não informado",
+        screens: Math.max(0, Number(ex.total_telas) || 0),
+        audience: Math.max(0, Number(ex.audiencia) || 0),
+        averageCpm: Math.max(0, Number(ex.cpm_medio_usd) || 0),
+        currency: "USD",
+        regions: Array.isArray(ex.regioes) ? ex.regioes.map(safeValue).filter(Boolean) : []
+      })).sort((a, b) => {
+        if (b.screens !== a.screens) return b.screens - a.screens;
+        if (b.audience !== a.audience) return b.audience - a.audience;
+        return a.name.localeCompare(b.name, "pt-BR");
+      });
+
+      state.rows = [];
+      state.sourceName = "exibidores.json";
+
+      const totalRows = resumo.capacidade_total || state.exhibitors.reduce((s, e) => s + e.screens, 0);
+      renderDashboard();
+    }
+
+    function loadParsedRows(rawRows, fileName, sourcePath) {
+      if (!isValidInventoryRows(rawRows)) {
+        showUploadError("O arquivo enviado nao parece ser um CSV de inventario Nirooh valido.");
+        return;
+      }
+
+      state.rows = rawRows.map(prepareRow).filter(Boolean);
+      state.exhibitors = aggregateExhibitors(state.rows);
+      state.sourceName = fileName;
+      state.sourcePath = sourcePath;
+      renderDashboard();
+    }
+
+    function renderDashboard() {
+      const visibleExhibitors = filterExhibitors(state.exhibitors, state.search);
+      const totals = summarizeExhibitors(visibleExhibitors);
+
+      state.visibleExhibitors = visibleExhibitors;
+
+      refs.totalExhibitors.textContent = numberFormatter.format(visibleExhibitors.length);
+      refs.totalScreens.textContent = numberFormatter.format(totals.screens);
+      refs.totalAudience.textContent = totals.audience > 999999 ? compactFormatter.format(totals.audience) : numberFormatter.format(totals.audience);
+      refs.averageCpm.textContent = formatCurrency(totals.averageCpm, totals.currency);
+      refs.cardCount.textContent = `${numberFormatter.format(visibleExhibitors.length)} cards`;
+      refs.resultsSummary.textContent = `Exibindo ${numberFormatter.format(visibleExhibitors.length)} de ${numberFormatter.format(state.exhibitors.length)} exibidores`;
+
+      updateNote();
+
+      if (!state.exhibitors.length) {
+        refs.cardsGrid.innerHTML = '<div class="empty">Nenhum exibidor encontrado no CSV carregado.</div>';
+        return;
+      }
+
+      if (!visibleExhibitors.length) {
+        refs.cardsGrid.innerHTML = '<div class="empty">Nenhum exibidor corresponde à busca atual. Tente outro termo ou limpe a pesquisa.</div>';
+        return;
+      }
+
+      refs.cardsGrid.innerHTML = visibleExhibitors.map((item) => {
+        const regionsLabel = item.regions.length === 1 ? "1 região" : `${numberFormatter.format(item.regions.length)} regiões`;
+        const regionsText = item.regions.join(", ");
+        const regionCodes = item.regions.map((region) => abbreviateRegion(region));
+        const regionsMarkup = item.regions.length
+          ? regionCodes.map((region) => `<span class="region-badge">${escapeHtml(region)}</span>`).join("")
+          : '<span class="region-badge region-badge--empty">Nao informado</span>';
+
+        return `
+          <article class="exhibitor-card">
+            <div class="card-head">
+              <div>
+                <h3>${escapeHtml(item.name)}</h3>
+                <p>${escapeHtml(regionsLabel)}</p>
+              </div>
+              <button
+                class="card-focus"
+                type="button"
+                data-focus-exhibitor="${escapeHtml(item.name)}"
+                aria-label="Filtrar por ${escapeHtml(item.name)}"
+                title="Filtrar por ${escapeHtml(item.name)}"
+              >
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <path d="M7 17L17 7" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+                  <path d="M8.5 7H17V15.5" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+                </svg>
+              </button>
+            </div>
+
+            <div class="metric-stack">
+              <div class="metric-box metric-box--highlight">
+                <span class="metric-label">Total de telas</span>
+                <div class="metric-value">
+                  <strong>${numberFormatter.format(item.screens)}</strong>
+                </div>
+                <svg class="metric-icon" width="34" height="34" viewBox="0 0 34 34" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                  <rect x="4.5" y="6.5" width="21" height="16" rx="3" fill="#08101F"/>
+                  <rect x="13" y="24" width="4" height="2.5" rx="1.25" fill="#08101F"/>
+                  <rect x="10" y="27.5" width="10" height="2" rx="1" fill="#08101F"/>
+                </svg>
+              </div>
+
+              <div class="metric-box metric-box--secondary">
+                <span class="metric-label">Audiência total</span>
+                <div class="metric-value">
+                  <strong>${formatAudience(item.audience)}</strong>
+                  <span class="metric-unit">impactos/semana</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card-footer">
+              <div class="footer-stat">
+                <span>CPM médio</span>
+                <strong>${formatCurrency(item.averageCpm, item.currency)}</strong>
+              </div>
+              <div class="coverage-row">
+                <span class="coverage-label">Abrangência</span>
+                <div class="regions-list" title="${escapeHtml(regionsText)}">${regionsMarkup}</div>
+              </div>
+            </div>
+          </article>
+        `;
+      }).join("");
+    }
+
+    function renderEmptyState() {
+      refs.totalExhibitors.textContent = "0";
+      refs.totalScreens.textContent = "0";
+      refs.totalAudience.textContent = "0";
+      refs.averageCpm.textContent = "US$ 0,00";
+      refs.cardCount.textContent = "0 cards";
+      refs.resultsSummary.textContent = "Exibindo 0 de 0 exibidores";
+      refs.cardsGrid.innerHTML = '<div class="empty">Carregando o cardápio de exibidores...</div>';
+    }
+
+    function summarizeExhibitors(exhibitors) {
+      let screens = 0;
+      let audience = 0;
+      let weightedCpm = 0;
+      let cpmBase = 0;
+      const currencies = new Map();
+
+      exhibitors.forEach((item) => {
+        screens += item.screens;
+        audience += item.audience;
+        if (item.averageCpm > 0) {
+          weightedCpm += item.averageCpm * item.screens;
+          cpmBase += item.screens;
+          currencies.set(item.currency, (currencies.get(item.currency) || 0) + item.screens);
+        }
+      });
+
+      return {
+        screens,
+        audience,
+        averageCpm: cpmBase ? weightedCpm / cpmBase : 0,
+        currency: dominantCurrency(currencies)
+      };
+    }
+
+    function filterExhibitors(exhibitors, searchValue) {
+      const searchTerm = normalizeText(searchValue);
+      if (!searchTerm) return exhibitors;
+
+      return exhibitors.filter((item) => {
+        const haystack = normalizeText([item.name, item.regions.join(" "), item.currency].join(" "));
+        return haystack.includes(searchTerm);
+      });
+    }
+
+    function aggregateExhibitors(rows) {
+      const groups = new Map();
+
+      rows.forEach((row) => {
+        const name = row.exhibitor || "Nao informado";
+        if (!groups.has(name)) {
+          groups.set(name, {
+            name,
+            screens: 0,
+            audience: 0,
+            weightedCpm: 0,
+            cpmBase: 0,
+            currencies: new Map(),
+            regions: new Set()
+          });
+        }
+
+        const group = groups.get(name);
+        group.screens += row.screenCount;
+        group.audience += row.audience;
+        group.regions.add(row.region || "Nao informado");
+
+        if (row.cpm > 0) {
+          group.weightedCpm += row.cpm * row.screenCount;
+          group.cpmBase += row.screenCount;
+          group.currencies.set(row.currency, (group.currencies.get(row.currency) || 0) + row.screenCount);
+        }
+      });
+
+      return Array.from(groups.values())
+        .map((group) => ({
+          name: group.name,
+          screens: group.screens,
+          audience: group.audience,
+          averageCpm: group.cpmBase ? group.weightedCpm / group.cpmBase : 0,
+          currency: dominantCurrency(group.currencies),
+          regions: Array.from(group.regions).sort((a, b) => a.localeCompare(b, "pt-BR"))
+        }))
+        .sort((a, b) => {
+          if (b.screens !== a.screens) return b.screens - a.screens;
+          if (b.audience !== a.audience) return b.audience - a.audience;
+          return a.name.localeCompare(b.name, "pt-BR");
+        });
+    }
+
+    function dominantCurrency(map) {
+      if (!map.size) return "USD";
+      return Array.from(map.entries()).sort((a, b) => b[1] - a[1])[0][0];
+    }
+
+    function prepareRow(raw) {
+      if (!raw || !Object.keys(raw).length) return null;
+
+      return {
+        exhibitor: safeValue(raw["network_name"]) || "Nao informado",
+        region: safeValue(raw["location.region"]) || "Nao informado",
+        screenCount: Math.max(1, Math.round(toNumber(raw["asset.screen_count"]) || 1)),
+        audience: Math.max(0, Math.round(toNumber(raw["measurement.imp_four_week"]) || toNumber(raw["measurement.imp_x"]))),
+        cpm: Math.max(0, toNumber(raw["planning.base_rate"]) || toNumber(raw["auction.bidfloor"])),
+        currency: safeValue(raw["planning.rate_cur"]) || safeValue(raw["auction.bidfloorcur"]) || "USD"
+      };
+    }
+
+    function parseCsv(text) {
+      const delimiter = detectDelimiter(text);
+      const rows = [];
+      let row = [];
+      let cell = "";
+      let quoted = false;
+      const input = text.replace(/^\uFEFF/, "");
+
+      for (let index = 0; index < input.length; index += 1) {
+        const char = input[index];
+        const next = input[index + 1];
+
+        if (quoted) {
+          if (char === '"') {
+            if (next === '"') {
+              cell += '"';
+              index += 1;
+            } else {
+              quoted = false;
+            }
+          } else {
+            cell += char;
+          }
+          continue;
+        }
+
+        if (char === '"') {
+          quoted = true;
+          continue;
+        }
+
+        if (char === delimiter) {
+          row.push(cell);
+          cell = "";
+          continue;
+        }
+
+        if (char === "\n") {
+          row.push(cell);
+          rows.push(row);
+          row = [];
+          cell = "";
+          continue;
+        }
+
+        if (char === "\r") {
+          continue;
+        }
+
+        cell += char;
+      }
+
+      if (cell.length || row.length) {
+        row.push(cell);
+        rows.push(row);
+      }
+
+      const [headers = [], ...data] = rows;
+      return data
+        .filter((values) => values.some((value) => safeValue(value)))
+        .map((values) => {
+          const item = {};
+          headers.forEach((header, columnIndex) => {
+            item[header] = values[columnIndex] || "";
+          });
+          return item;
+        });
+    }
+
+    function detectDelimiter(text) {
+      const sampleLine = String(text || "")
+        .replace(/^\uFEFF/, "")
+        .split(/\r?\n/)
+        .find((line) => safeValue(line));
+
+      if (!sampleLine) return ",";
+
+      const commaCount = (sampleLine.match(/,/g) || []).length;
+      const semicolonCount = (sampleLine.match(/;/g) || []).length;
+      const tabCount = (sampleLine.match(/\t/g) || []).length;
+
+      if (tabCount > commaCount && tabCount > semicolonCount) return "\t";
+      return semicolonCount > commaCount ? ";" : ",";
+    }
+
+    function isValidInventoryRows(rows) {
+      if (!Array.isArray(rows) || !rows.length) return false;
+      return rows.some((row) => {
+        const keys = Object.keys(row || {});
+        return keys.includes("network_name") || keys.includes("asset.screen_count") || keys.includes("location.region");
+      });
+    }
+
+    function exportVisibleExhibitors() {
+      if (!state.visibleExhibitors.length) {
+        return;
+      }
+
+      const header = [
+        "exhibitor",
+        "total_screens",
+        "total_audience",
+        "average_cpm",
+        "currency",
+        "regions_count",
+        "regions"
+      ];
+
+      const lines = [
+        header.join(","),
+        ...state.visibleExhibitors.map((item) => [
+          item.name,
+          item.screens,
+          item.audience,
+          item.averageCpm.toFixed(2),
+          item.currency,
+          item.regions.length,
+          item.regions.join(" | ")
+        ].map(csvEscape).join(","))
+      ];
+
+      const timestamp = new Date().toISOString().slice(0, 19).replace(/[T:]/g, "-");
+      const blob = new Blob(["\uFEFF", lines.join("\n")], { type: "text/csv;charset=utf-8;" });
+      const url = URL.createObjectURL(blob);
+      const link = document.createElement("a");
+
+      link.href = url;
+      link.download = `nirooh_exhibitors_${timestamp}.csv`;
+      document.body.appendChild(link);
+      link.click();
+      link.remove();
+      URL.revokeObjectURL(url);
+    }
+
+    function csvEscape(value) {
+      const text = String(value == null ? "" : value);
+      return `"${text.replace(/"/g, '""')}"`;
+    }
+
+    function updateNote() {
+      const sourceMessage = state.sourcePath
+        ? ` Fonte atual: <strong>${escapeHtml(state.sourcePath)}</strong>.`
+        : "";
+      const searchMessage = state.search
+        ? ` Busca ativa: <strong>${escapeHtml(state.search)}</strong>.`
+        : "";
+    }
+
+    function toNumber(value) {
+      const text = safeValue(value)
+        .replace(/\s/g, "")
+        .replace(/\.(?=\d{3}\b)/g, "")
+        .replace(",", ".");
+      const number = Number(text);
+      return Number.isFinite(number) ? number : 0;
+    }
+
+    function safeValue(value) {
+      return value == null ? "" : String(value).trim();
+    }
+
+    function normalizeText(value) {
+      return safeValue(value)
+        .normalize("NFD")
+        .replace(/[\u0300-\u036f]/g, "")
+        .toLowerCase();
+    }
+
+    function abbreviateRegion(value) {
+      const normalized = normalizeText(value);
+      const regionMap = {
+        acre: "AC",
+        alagoas: "AL",
+        amapa: "AP",
+        amazonas: "AM",
+        bahia: "BA",
+        ceara: "CE",
+        "distrito federal": "DF",
+        "espirito santo": "ES",
+        goias: "GO",
+        maranhao: "MA",
+        "mato grosso": "MT",
+        "mato grosso do sul": "MS",
+        "minas gerais": "MG",
+        para: "PA",
+        paraiba: "PB",
+        parana: "PR",
+        pernambuco: "PE",
+        piaui: "PI",
+        "rio de janeiro": "RJ",
+        "rio grande do norte": "RN",
+        "rio grande do sul": "RS",
+        rondonia: "RO",
+        roraima: "RR",
+        "santa catarina": "SC",
+        "sao paulo": "SP",
+        sergipe: "SE",
+        tocantins: "TO"
+      };
+
+      if (regionMap[normalized]) {
+        return regionMap[normalized];
+      }
+
+      const cleaned = safeValue(value).replace(/[^A-Za-z]/g, "");
+      if (cleaned.length === 2) {
+        return cleaned.toUpperCase();
+      }
+
+      return safeValue(value).slice(0, 3).toUpperCase() || "ND";
+    }
+
+    function formatCurrency(value, currency = "USD") {
+      return new Intl.NumberFormat("pt-BR", {
+        style: "currency",
+        currency: currency || "USD",
+        minimumFractionDigits: 2,
+        maximumFractionDigits: 2
+      }).format(value || 0);
+    }
+
+    function formatAudience(value) {
+      return value > 999999 ? compactFormatter.format(value) : numberFormatter.format(value);
+    }
+
+    function escapeHtml(value) {
+      return String(value)
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+    }
+  </script>
+</body>
+</html>
