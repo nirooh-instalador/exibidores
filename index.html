@@ -838,7 +838,6 @@
   <script>
 
     const state = {
-      rows: [],
       exhibitors: [],
       visibleExhibitors: [],
       search: ""
@@ -918,9 +917,6 @@
         return a.name.localeCompare(b.name, "pt-BR");
       });
 
-      state.rows = [];
-
-      const totalRows = resumo.capacidade_total || state.exhibitors.reduce((s, e) => s + e.screens, 0);
       renderDashboard();
     }
 
@@ -1058,67 +1054,9 @@
       });
     }
 
-    function aggregateExhibitors(rows) {
-      const groups = new Map();
-
-      rows.forEach((row) => {
-        const name = row.exhibitor || "Nao informado";
-        if (!groups.has(name)) {
-          groups.set(name, {
-            name,
-            screens: 0,
-            audience: 0,
-            weightedCpm: 0,
-            cpmBase: 0,
-            currencies: new Map(),
-            regions: new Set()
-          });
-        }
-
-        const group = groups.get(name);
-        group.screens += row.screenCount;
-        group.audience += row.audience;
-        group.regions.add(row.region || "Nao informado");
-
-        if (row.cpm > 0) {
-          group.weightedCpm += row.cpm * row.screenCount;
-          group.cpmBase += row.screenCount;
-          group.currencies.set(row.currency, (group.currencies.get(row.currency) || 0) + row.screenCount);
-        }
-      });
-
-      return Array.from(groups.values())
-        .map((group) => ({
-          name: group.name,
-          screens: group.screens,
-          audience: group.audience,
-          averageCpm: group.cpmBase ? group.weightedCpm / group.cpmBase : 0,
-          currency: dominantCurrency(group.currencies),
-          regions: Array.from(group.regions).sort((a, b) => a.localeCompare(b, "pt-BR"))
-        }))
-        .sort((a, b) => {
-          if (b.screens !== a.screens) return b.screens - a.screens;
-          if (b.audience !== a.audience) return b.audience - a.audience;
-          return a.name.localeCompare(b.name, "pt-BR");
-        });
-    }
-
     function dominantCurrency(map) {
       if (!map.size) return "USD";
       return Array.from(map.entries()).sort((a, b) => b[1] - a[1])[0][0];
-    }
-
-    function prepareRow(raw) {
-      if (!raw || !Object.keys(raw).length) return null;
-
-      return {
-        exhibitor: safeValue(raw["network_name"]) || "Nao informado",
-        region: safeValue(raw["location.region"]) || "Nao informado",
-        screenCount: Math.max(1, Math.round(toNumber(raw["asset.screen_count"]) || 1)),
-        audience: Math.max(0, Math.round(toNumber(raw["measurement.imp_four_week"]) || toNumber(raw["measurement.imp_x"]))),
-        cpm: Math.max(0, toNumber(raw["planning.base_rate"]) || toNumber(raw["auction.bidfloor"])),
-        currency: safeValue(raw["planning.rate_cur"]) || safeValue(raw["auction.bidfloorcur"]) || "USD"
-      };
     }
 
     function exportVisibleExhibitors() {
